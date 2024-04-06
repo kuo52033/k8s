@@ -84,7 +84,7 @@ mkdir -p $HOME/.kube
   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
-### get node/pod status
+### Get node/pod status
 ```
 kubectl get node
 kubectl get pod -A
@@ -114,6 +114,10 @@ net-conf.json: |
   - --ip-masq
   - --kube-subnet-mgr
   - --iface=enp0s1
+```
+### Create join Token
+```
+kubeadm token create --print-join-command
 ```
 
 
