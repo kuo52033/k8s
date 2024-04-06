@@ -73,3 +73,47 @@ sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 ```
 
+## Control Plane
+### Init
+```
+ sudo kubeadm init --apiserver-advertise-address=<your control plane IP>  --pod-network-cidr=<pod network IP base on CNI>
+```
+### Configure .kube
+```
+mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
+### get node/pod status
+```
+kubectl get node
+kubectl get pod -A
+```
+### Install [CNI](https://kubernetes.io/docs/concepts/cluster-administration/addons/) (Use flannel)
+```
+sudo curl -LO https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
+sudo nano kube-flannel.yml
+```
+#### Make sure podCiDR is same as <--pod-network-cidr >
+```
+net-conf.json: |
+  {
+    "Network": "10.10.0.0/16",
+    "Backend": {
+      "Type": "vxlan"
+    }
+  }
+```
+#### Add kube-flannel args "iface=<--apiserver-advertise-address>"
+```
+- name: kube-flannel
+  image: docker.io/flannel/flannel:v0.24.2
+  command:
+  - /opt/bin/flanneld
+  args:
+  - --ip-masq
+  - --kube-subnet-mgr
+  - --iface=enp0s1
+```
+
+
