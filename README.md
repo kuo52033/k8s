@@ -2,7 +2,7 @@ k8s
 ===
 
 ### Tool
-* Multipass
+* ```Multipass``` use to run and launch virtual machines like a public cloud
 
 ### Step 1 : Generate VM
 ```
