@@ -3,7 +3,7 @@
 # declare
 NAMESPACE="chat"
 WAIT_RESOURCE_CREATION_IN_SEC=300
-YAML_DIR_PATH="/chat"
+YAML_DIR_PATH="/home/ubuntu/chat"
 
 applyNamespace() {
 	echo "[INFO] apply $NAMESPACE namespace..."
@@ -27,7 +27,7 @@ applyNginxIngressController() {
 	echo "[INFO] apply nginx-ingress-controller..."
 
 	kubectl apply -f $YAML_DIR_PATH/nginx-ingress-controller.yaml
-	timeout $WAIT_RESOURCE_CREATION_IN_SEC kubectl rollout status deploy nginx-ingress-controller -w
+	timeout $WAIT_RESOURCE_CREATION_IN_SEC kubectl rollout status deploy ingress-nginx-controller -w --namespace ingress-nginx
 
 	echo "[INFO] apply nginx-ingress-controller done"
 }
