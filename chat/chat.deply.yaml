@@ -1,3 +1,41 @@
+kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: chat-ingress
+  namespace: chat
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "3600"
+spec:
+  rules:
+    - host: chat.demo.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: chat-service
+                port:
+                  number: 80
+  ingressClassName: nginx
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: chat-service
+  namespace: chat
+spec:
+  selector:
+    app: chat
+  ports:
+    - protocol: TCP
+      port: 80 #service開放的
+      targetPort: 3005 #pod開放的
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -20,7 +58,7 @@ spec:
     spec:
       containers:
         - name: chat
-          image: kuo52033/chat-demo:production-1.7
+          image: kuo52033/chat-demo:production-2.4
           ports:
             - containerPort: 3005
           command: ["pm2-runtime"]
@@ -42,20 +80,5 @@ spec:
         - name: log
           hostPath:
             path: /var/log/chat/production
-            type: DirectoryOrCreate
 
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: chat-service
-  namespace: chat
-spec:
-  type: NodePort
-  selector:
-    app: chat
-  ports:
-    - protocol: TCP
-      port: 3005 #service開放的
-      targetPort: 3005 #pod開放的
-      nodePort: 30000
+            type: DirectoryOrCreate
