@@ -74,11 +74,10 @@ spec:
 
           volumeMounts:
             - name: log
-              mountPath: /var/log/chat
+              mountPath: /tmp
 
       volumes:
         - name: log
           hostPath:
             path: /var/log/chat/production
-
             type: DirectoryOrCreate
