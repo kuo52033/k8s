@@ -116,6 +116,9 @@ data:
       id: chat-logs
       paths:
         - /root/.pm2/logs/*.log
+    output.logstash:
+      hosts: ["logstash-service.chat.svc.cluster.local:5044"]
+      protocal: "tcp"
       # parsers:
       #   - container: ~
       # prospector:
@@ -160,10 +163,6 @@ data:
     #   hosts: ['${ELASTICSEARCH_HOST:elasticsearch}:${ELASTICSEARCH_PORT:9200}']
     #   username: ${ELASTICSEARCH_USERNAME}
     #   password: ${ELASTICSEARCH_PASSWORD}
-
-    output.logstash:
-      hosts:["logstash-service.chat.svc.cluster.local:5044"]
-      protocal:"tcp"
 ---
 apiVersion: apps/v1
 kind: DaemonSet

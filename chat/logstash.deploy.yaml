@@ -33,15 +33,8 @@ data:
     }
 
     output {
-      # elasticsearch {
-      #   hosts => ["https://search-ms-log-gwyqtgifqvpctdu2qemcpwyaf4.ap-northeast-2.es.amazonaws.com:443"]
-      #   ssl => true
-      #   index => "chat-%{+YYYY.MM.dd}"
-      #   user => "ljit-developer"
-      #   password => "123qweASD?"
-      # }
       file {
-         path => /tmp/logstash.txt
+         path => "/tmp/logstash.txt"
          codec => line { format => "custom format: %{message}"}
       }
     }
