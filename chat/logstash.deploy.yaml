@@ -33,9 +33,10 @@ data:
     }
 
     output {
-      file {
-         path => "/tmp/logstash.txt"
-         codec => line { format => "custom format: %{message}"}
+      elasticsearch {
+        hosts => ["http://192.168.64.11:9200"]
+        user => "elastic"
+        password => "yourpassword"
       }
     }
 

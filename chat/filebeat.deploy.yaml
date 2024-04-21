@@ -115,7 +115,7 @@ data:
     - type: filestream
       id: chat-logs
       paths:
-        - /root/.pm2/logs/*.log
+        - /crawlPath/*.log
     output.logstash:
       hosts: ["logstash-service.chat.svc.cluster.local:5044"]
       protocal: "tcp"
@@ -229,7 +229,7 @@ spec:
               mountPath: /var/log
               readOnly: true
             - name: log
-              mountPath: /root/.pm2/logs
+              mountPath: /crawlPath
       volumes:
         - name: config
           configMap:
