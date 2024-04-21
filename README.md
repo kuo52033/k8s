@@ -1,8 +1,15 @@
 k8s
 ===
 
+### Goal
+Build a microservices architecture backend system.
+
+
 ### Tool
-* ```Multipass``` use to run and launch virtual machines like a public cloud
+* Use ```Multipass``` to run and launch virtual machines like a public cloud.
+* Use ```Kubernetes```  for automating deployment, scaling, and management of containerized applications.
+* Use ```ELK stack``` for collection system or application logs and we could quickly analyze those data if we need it.
+* Use ```Nginx``` as a reverse proxy and load balancer for kubernetes.
 
 ### Step 1 : Generate VM
 ```
